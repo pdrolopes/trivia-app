@@ -1,11 +1,22 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import logo from "./logo.svg";
 import styles from "./App.module.scss";
 import { Foo } from "foo/foo";
+import { useAppDispatch } from "store";
 import classNames from "classnames/bind";
+import { getQuestion } from "store/questions";
+import { unwrapResult } from "@reduxjs/toolkit";
 
-function App() {
+function App(): ReactElement {
   const cx = classNames.bind(styles);
+  const dispatch = useAppDispatch();
+
+  const onClick = async () => {
+    const value = await dispatch(
+      getQuestion({ categoryId: 10, difficulty: "easy" })
+    ).then(unwrapResult);
+    console.log({ value });
+  };
 
   console.log({ styles });
   return (
@@ -24,7 +35,7 @@ function App() {
           Learn React!
         </a>
         <h1 className={cx({ foo: true })}>inner</h1>
-        <Foo />
+        <button onClick={onClick}>AAAAA</button>
       </header>
     </div>
   );

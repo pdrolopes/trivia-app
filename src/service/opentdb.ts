@@ -1,4 +1,6 @@
-const OPENTDB_API = "https://opentdb.com/api_config.php";
+const OPENTDB_HOST = "https://opentdb.com";
+const QUESTIONS_API = `${OPENTDB_HOST}/api.php`;
+const TOKEN_API = `${OPENTDB_HOST}/api_token.php`;
 
 type SessionTokenResponse = {
   token: string;
@@ -6,19 +8,20 @@ type SessionTokenResponse = {
   response_code: number;
 };
 
-export async function retrieveSessionToken(): Promise<SessionTokenResponse> {
-  return {
-    token: "sasdasd",
-    response_message: "sasdasd",
-    response_code: 10,
-  };
+export async function retrieveSessionToken(): Promise<string> {
+  const url = new URL(TOKEN_API);
+  url.searchParams.append("command", "request");
+
+  const response: SessionTokenResponse = await apiFetch(url.toString());
+  return response.token;
 }
 
-type Difficulty = "easy" | "medium" | "hard";
-type Kind = "multiple" | "boolean";
+export type Difficulty = "easy" | "medium" | "hard";
+export type Kind = "multiple" | "boolean";
 
-type QuestionAPI = {
+export type QuestionAPI = {
   category: string;
+  categoryId: number; // TODO Create own question type with camel case
   kind: Kind;
   difficulty: Difficulty;
   question: string;
@@ -33,17 +36,29 @@ type QuestionApiResponse = {
 
 type RetrieveQuestionArgs = {
   amount: number;
-  kind?: Kind;
+  kind: Kind;
   difficulty: Difficulty;
-  category: number;
+  categoryId: number;
+  token: string;
 };
 
 export async function retrieveQuestions(
   args: RetrieveQuestionArgs
 ): Promise<Array<QuestionAPI>> {
-  const { amount, kind = "multiple", difficulty, category } = args;
-  const result = await apiFetch(OPENTDB_API);
-  return [];
+  const { amount, kind, difficulty, categoryId, token } = args;
+
+  const url = new URL(QUESTIONS_API);
+  url.searchParams.append("amount", String(amount));
+  url.searchParams.append("category", String(categoryId));
+  url.searchParams.append("difficulty", difficulty);
+  url.searchParams.append("type", kind);
+  url.searchParams.append("token", token);
+
+  const response: QuestionApiResponse = await apiFetch(url.toString());
+  return response.results.map((question) => ({
+    ...question,
+    categoryId,
+  }));
 }
 
 async function apiFetch<T>(url: string): Promise<T> {
