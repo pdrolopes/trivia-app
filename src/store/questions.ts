@@ -5,15 +5,10 @@ import {
   retrieveSessionToken,
   retrieveQuestions,
 } from "service/opentdb";
-import { AppDispatch, RootState } from "./index";
+import { ThunkAPI } from "store";
 
 const QUESTIONS_FETCH_AMOUNT = 10;
 const QUESTIONS_FETCH_KIND = "multiple";
-
-type ThunkAPI = {
-  dispatch: AppDispatch;
-  state: RootState;
-};
 
 type State = {
   readonly token: string | undefined;
@@ -58,8 +53,7 @@ export const getQuestion = createAsyncThunk<
 
   const question = getState()
     .questions.items.filter(
-      (item) =>
-        item.difficulty === difficulty && item.category === item.category
+      (item) => item.difficulty === difficulty && item.categoryId === categoryId
     )
     .find((_, index) => index === 0);
 

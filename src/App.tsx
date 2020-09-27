@@ -1,24 +1,41 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import logo from "./logo.svg";
 import styles from "./App.module.scss";
-import { Foo } from "foo/foo";
-import { useAppDispatch } from "store";
+import { useAppDispatch, useAppSelector } from "store";
 import classNames from "classnames/bind";
-import { getQuestion } from "store/questions";
-import { unwrapResult } from "@reduxjs/toolkit";
+import { startExam, loadQuestion, answerQuestion } from "store/exams";
 
 function App(): ReactElement {
   const cx = classNames.bind(styles);
   const dispatch = useAppDispatch();
+  const ongoingExam = useAppSelector((state) =>
+    state.exam.activeExam?.kind === "ongoing"
+      ? state.exam.activeExam
+      : undefined
+  );
 
-  const onClick = async () => {
-    const value = await dispatch(
-      getQuestion({ categoryId: 10, difficulty: "easy" })
-    ).then(unwrapResult);
-    console.log({ value });
+  const finishedExam = useAppSelector((state) =>
+    state.exam.activeExam?.kind === "finished"
+      ? state.exam.activeExam
+      : undefined
+  );
+  const currentQuestion = ongoingExam?.currentQuestion;
+  const positionExam = (ongoingExam?.pastAnswers.length || 0) + 1;
+  const level = currentQuestion?.difficulty;
+
+  const onClick = () => {
+    dispatch(answerQuestion(currentQuestion?.correct_answer || ""));
   };
 
-  console.log({ styles });
+  const onClicka = () => {
+    dispatch(answerQuestion(currentQuestion?.correct_answer + "aaa" || ""));
+  };
+  useEffect(() => {
+    dispatch(startExam(10));
+    dispatch(loadQuestion());
+  }, [currentQuestion, dispatch]);
+
+  console.log(currentQuestion?.question);
   return (
     <div className={styles.App}>
       <header className={styles["App-header"]}>
@@ -35,7 +52,10 @@ function App(): ReactElement {
           Learn React!
         </a>
         <h1 className={cx({ foo: true })}>inner</h1>
-        <button onClick={onClick}>AAAAA</button>
+        <button onClick={onClick}>right answer</button>
+        <button onClick={onClicka}>wrong answer</button>
+        {positionExam} {level} {currentQuestion?.question}
+        {finishedExam && JSON.stringify(finishedExam.pastAnswers)}
       </header>
     </div>
   );
