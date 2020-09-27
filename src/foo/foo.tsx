@@ -1,7 +1,9 @@
-import React from 'react';
-
+import React from "react";
 
 export function Foo() {
-
-  return (<div><h1 className="foo">Pedro</h1></div>)
+  return (
+    <div>
+      <h1 className="foo">Pedro</h1>
+    </div>
+  );
 }

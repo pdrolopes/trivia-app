@@ -7,7 +7,5 @@
 
 // export type RootState = ReturnType<typeof rootReducer>
 
-
-
 // REDUX TOOL KIT
 import { configureStore } from "@reduxjs/toolkit";
