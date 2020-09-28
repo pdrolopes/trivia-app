@@ -10,7 +10,7 @@ export default function Header(props: Props): ReactElement {
   const { title } = props;
   return (
     <div className={styles.container}>
-      <span className={styles.title}>{title}</span>
+      <span>{title}</span>
     </div>
   );
 }

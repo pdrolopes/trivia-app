@@ -1,0 +1,26 @@
+@import '../../variables.scss';
+
+.container {
+  display: flex;
+  width: calc(86px - 2 * 6px);
+  height: 20px;
+  font-size: 12px;
+  background-color: $gray0;
+  border-radius: 14px;
+  padding: 0px 6px;
+  align-items: center;
+
+  .stars {
+    width: 50%;
+  }
+
+  .label {
+    width: 50%;
+  }
+}
+
+.starDisabled {
+  path {
+    fill: $gray1;
+  }
+}
