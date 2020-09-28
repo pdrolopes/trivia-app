@@ -1,14 +1,15 @@
 const OPENTDB_HOST = "https://opentdb.com";
 const QUESTIONS_API = `${OPENTDB_HOST}/api.php`;
 const TOKEN_API = `${OPENTDB_HOST}/api_token.php`;
-
-type SessionTokenResponse = {
-  token: string;
-  response_message: string;
-  response_code: number;
-};
+const CATEGORIES_API = `${OPENTDB_HOST}/api_category.php`;
 
 export async function retrieveSessionToken(): Promise<string> {
+  type SessionTokenResponse = {
+    token: string;
+    response_message: string;
+    response_code: number;
+  };
+
   const url = new URL(TOKEN_API);
   url.searchParams.append("command", "request");
 
@@ -16,23 +17,17 @@ export async function retrieveSessionToken(): Promise<string> {
   return response.token;
 }
 
-export type Difficulty = "easy" | "medium" | "hard";
-export type Kind = "multiple" | "boolean";
+export async function retrieveCategories(): Promise<Array<Category>> {
+  type CategoriesResponse = {
+    trivia_categories: Array<Category>;
+  };
 
-export type QuestionAPI = {
-  category: string;
-  categoryId: number; // TODO Create own question type with camel case
-  kind: Kind;
-  difficulty: Difficulty;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: Array<string>;
-};
+  const url = new URL(CATEGORIES_API);
+  url.searchParams.append("command", "request");
 
-type QuestionApiResponse = {
-  results: Array<QuestionAPI>;
-  response_code: number;
-};
+  const response: CategoriesResponse = await apiFetch(url.toString());
+  return response.trivia_categories;
+}
 
 type RetrieveQuestionArgs = {
   amount: number;
@@ -45,6 +40,10 @@ type RetrieveQuestionArgs = {
 export async function retrieveQuestions(
   args: RetrieveQuestionArgs
 ): Promise<Array<QuestionAPI>> {
+  type QuestionApiResponse = {
+    results: Array<QuestionAPI>;
+    response_code: number;
+  };
   const { amount, kind, difficulty, categoryId, token } = args;
 
   const url = new URL(QUESTIONS_API);
@@ -69,3 +68,19 @@ async function apiFetch<T>(url: string): Promise<T> {
 
   return response.json();
 }
+
+export type Category = {
+  id: number;
+  name: string;
+};
+export type Difficulty = "easy" | "medium" | "hard";
+export type Kind = "multiple" | "boolean";
+export type QuestionAPI = {
+  category: string;
+  categoryId: number; // TODO Create own question type with camel case
+  kind: Kind;
+  difficulty: Difficulty;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: Array<string>;
+};
