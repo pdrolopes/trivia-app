@@ -1,13 +1,13 @@
 import React, { ReactElement, useEffect } from "react";
-import { RouteComponentProps, navigate } from "@reach/router";
+import { navigate, RouteComponentProps } from "@reach/router";
 import { useAppDispatch, useAppSelector } from "store";
 import { loadCategories } from "store/categories";
-import Button from "components/Button";
-import Header from "components/Header";
+import HomeTemplate from "components/HomeTemplate";
 
-export default function Home(props: RouteComponentProps): ReactElement {
+export default function Home(_: RouteComponentProps): ReactElement {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.items);
+  const loading = useAppSelector((state) => state.categories.loading);
 
   useEffect(() => {
     if (categories === undefined) {
@@ -16,15 +16,11 @@ export default function Home(props: RouteComponentProps): ReactElement {
   }, [categories]);
 
   return (
-    <div>
-      <Header title="Dev mobile" />
-      <h1>Categorias</h1>
-      {categories &&
-        categories.map((category, index) => (
-          <Button key={index} onClick={() => navigate(`/exam/${category.id}`)}>
-            {category.name}
-          </Button>
-        ))}
-    </div>
+    <HomeTemplate
+      categories={categories || []}
+      loading={loading}
+      error={false}
+      onCategorySelect={(category) => navigate(`/exam/${category.id}`)}
+    />
   );
 }

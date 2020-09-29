@@ -17,20 +17,22 @@ type Answer = {
   correct: boolean;
 };
 
-type ExamState =
-  | {
-      kind: "ongoing";
-      categoryId: number;
-      pastAnswers: Array<Answer>;
-      currentQuestion: QuestionAPI | undefined;
-      loading: boolean;
-      error: boolean;
-    }
-  | {
-      kind: "finished";
-      categoryId: number;
-      pastAnswers: Array<Answer>;
-    };
+export type ExamOngoing = {
+  kind: "ongoing";
+  categoryId: number;
+  pastAnswers: Array<Answer>;
+  currentQuestion: QuestionAPI | undefined;
+  loading: boolean;
+  error: boolean;
+};
+
+export type ExamFinished = {
+  kind: "finished";
+  categoryId: number;
+  pastAnswers: Array<Answer>;
+};
+
+type ExamState = ExamOngoing | ExamFinished;
 
 type State = {
   activeExam: ExamState | undefined;

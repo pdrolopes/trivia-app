@@ -1,0 +1,23 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.title {
+  margin-bottom: 30px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  justify-content: center;
+}
+
+.categoryButton {
+  margin-bottom: 8px;
+}
+.loader {
+  margin: 50px auto;
+}

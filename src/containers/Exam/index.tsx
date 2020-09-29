@@ -3,7 +3,8 @@ import { RouteComponentProps } from "@reach/router";
 import { useAppDispatch, useAppSelector } from "store";
 import { startExam, loadQuestion } from "store/exams";
 import QuestionLevel from "components/QuestionLevel";
-import Header from "components/Header";
+import PageLayout from "components/PageLayout";
+import ActiveExam from "./components/ActiveExam";
 
 type Props = {
   categoryId?: string;
@@ -32,18 +33,9 @@ export default function Exam(props: Props): ReactElement {
 
   console.log({ currentQuestion });
 
-  /* const categories = useAppSelector((state) => state.categories.items); */
-
-  /* useEffect(() => { */
-  /*   if (categories === undefined) { */
-  /*     dispatch(loadCategories()); */
-  /*   } */
-  /* }, [categories]); */
   return (
-    <div>
-      <Header title="aaaaa" />
-      {currentQuestion?.question}{" "}
-      {currentQuestion && <QuestionLevel level={currentQuestion.difficulty} />}
-    </div>
+    <PageLayout title="Category">
+      {ongoingExam && <ActiveExam exam={ongoingExam} />}
+    </PageLayout>
   );
 }

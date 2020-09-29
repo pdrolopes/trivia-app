@@ -14,14 +14,15 @@ export default function QuestionLevel(props: Props): ReactElement {
   const label = levelLabel(level);
   const cx = classNames.bind(styles);
 
-  const starHardDisablde = level === "easy" || level === "medium";
+  const starMediumDisable = level === "easy";
+  const starHardDisable = level === "easy" || level === "medium";
 
   return (
     <div className={styles.container}>
       <div className={styles.stars}>
         <Star />
-        <Star className={cx({ starDisabled: level === "easy" })} />
-        <Star className={cx({ starDisabled: starHardDisablde })} />
+        <Star className={cx({ starDisabled: starMediumDisable })} />
+        <Star className={cx({ starDisabled: starHardDisable })} />
       </div>
       <span className={styles.label}>{label}</span>
     </div>

@@ -1,0 +1,13 @@
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .children {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 56px);
+    overflow-y: scroll;
+  }
+}

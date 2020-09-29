@@ -18,10 +18,6 @@ const initialState: State = {
 export const loadCategories = createAsyncThunk<Array<Category>, void, ThunkAPI>(
   "categories/loadCategories",
   retrieveCategories
-  // async function (_, thunkAPI) {
-  //   const { getState } = thunkAPI;
-  //   return await retrieveCategories();
-  // }
 );
 
 const categories = createSlice({
@@ -34,7 +30,7 @@ const categories = createSlice({
       state.error = false;
     });
     builder.addCase(loadCategories.fulfilled, (state, { payload }) => {
-      state.loading = true;
+      state.loading = false;
       state.items = payload.slice(0, MAX_CATEGORIES);
     });
     builder.addCase(loadCategories.rejected, (state) => {
