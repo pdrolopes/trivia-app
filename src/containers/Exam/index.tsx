@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { useAppDispatch, useAppSelector } from "store";
-import { startExam, loadQuestion } from "store/exams";
+import { startExam, loadQuestion, answerQuestion } from "store/exams";
 import { loadCategories } from "store/categories";
 import ActiveExam from "./components/ActiveExam";
 
@@ -40,7 +40,11 @@ export default function Exam(props: Props): ReactElement {
   }, [currentQuestion, dispatch]);
 
   return ongoingExam ? (
-    <ActiveExam category={categoryName || ""} exam={ongoingExam} />
+    <ActiveExam
+      category={categoryName || ""}
+      exam={ongoingExam}
+      onAnswer={(value) => dispatch(answerQuestion(value))}
+    />
   ) : (
     <div></div>
   );

@@ -1,22 +1,26 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, Fragment } from "react";
 import PageLayout from "components/PageLayout";
 import { ExamOngoing } from "store/exams";
 import QuestionLevel from "components/QuestionLevel";
+import QuestionResultCard from "components/QuestionResultCard";
 import QuestionCard from "components/QuestionCard";
 import styles from "./activeExam.module.scss";
 import Loader from "components/Loader";
 import Button from "components/Button";
 import { CSSTransition } from "react-transition-group";
+import { ReactComponent as ArrowRight } from "./arrowRight.svg";
 
 type Props = {
   exam: ExamOngoing;
   category: string;
+  onAnswer(answer: string): void;
 };
 
 export default function ActiveExam(props: Props): ReactElement {
   const {
     category,
     exam: { pastAnswers, currentQuestion, loading },
+    onAnswer,
   } = props;
   const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
   const [confirmedAnswer, setConfirmedAnswer] = useState(false);
@@ -31,18 +35,29 @@ export default function ActiveExam(props: Props): ReactElement {
   const isAnswerCorrect = currentQuestion
     ? currentQuestion.correct_answer === selectedAnswer
     : false;
+  const footerButtonLabel = !confirmedAnswer ? (
+    "Responder"
+  ) : (
+    <Fragment>
+      Avançar <ArrowRight />
+    </Fragment>
+  );
 
   const handleAnswerClick = (answer: string) => () => {
     selectedAnswer !== answer
       ? setSelectedAnswer(answer)
       : setSelectedAnswer(undefined);
   };
-  console.log({
-    enter: styles["footerTransition-enter"],
-    enterActive: styles["footerTransition-enter-active"],
-    exit: styles["footerTransition-exit"],
-    exitActive: styles["footerTransition-exit-active"],
-  });
+  const handleFooterButtonClick = () => {
+    if (!confirmedAnswer) {
+      setConfirmedAnswer(true);
+      return;
+    } else {
+      onAnswer(selectedAnswer || "");
+      setSelectedAnswer(undefined);
+      setConfirmedAnswer(false);
+    }
+  };
 
   return (
     <PageLayout title={category} className={styles.pageLayout}>
@@ -64,6 +79,11 @@ export default function ActiveExam(props: Props): ReactElement {
             />
           );
         })}
+        {confirmedAnswer && (
+          <div className={styles.overlay}>
+            <QuestionResultCard correct={isAnswerCorrect} />
+          </div>
+        )}
         <CSSTransition
           in={selectedAnswer !== undefined}
           timeout={200}
@@ -76,12 +96,13 @@ export default function ActiveExam(props: Props): ReactElement {
           }}
         >
           <div className={styles.footer}>
-            <Button primary className={styles.confirmButton}>
-              Responder
+            <Button
+              primary
+              className={styles.confirmButton}
+              onClick={handleFooterButtonClick}
+            >
+              {footerButtonLabel}
             </Button>
-            {/* <Button primary className={styles.confirmButton}> */}
-            {/*   Avançar */}
-            {/* </Button> */}
           </div>
         </CSSTransition>
       </div>

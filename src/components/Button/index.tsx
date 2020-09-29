@@ -2,7 +2,6 @@ import React, { ReactElement } from "react";
 import styles from "./styles.module.scss";
 import classNames from "classnames/bind";
 
-//TODO Add style, neutral and primary
 type Props = {
   primary?: boolean;
   secundary?: boolean;
@@ -13,12 +12,13 @@ type Props = {
 const cx = classNames.bind(styles);
 
 export default function Button(props: Props): ReactElement {
-  const { className, secundary, primary, ...rest } = props;
+  const { className, secundary = false, primary = false, ...rest } = props;
+
   return (
     <button
       className={cx(className, "base", {
-        secundary: secundary,
-        primary: primary,
+        secundary,
+        primary,
       })}
       {...rest}
     />
