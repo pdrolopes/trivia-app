@@ -2,8 +2,7 @@ import React, { ReactElement, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { useAppDispatch, useAppSelector } from "store";
 import { startExam, loadQuestion } from "store/exams";
-import QuestionLevel from "components/QuestionLevel";
-import PageLayout from "components/PageLayout";
+import { loadCategories } from "store/categories";
 import ActiveExam from "./components/ActiveExam";
 
 type Props = {
@@ -13,7 +12,10 @@ export default function Exam(props: Props): ReactElement {
   const dispatch = useAppDispatch();
   const categoryId = Number(props.categoryId);
 
-  /* const activeExam = useAppSelector((state) => state.exam.activeExam); */
+  const categoryName = useAppSelector(
+    (state) =>
+      state.categories.items?.find((item) => item.id === categoryId)?.name
+  );
   const ongoingExam = useAppSelector((state) =>
     state.exam.activeExam?.kind === "ongoing"
       ? state.exam.activeExam
@@ -26,16 +28,20 @@ export default function Exam(props: Props): ReactElement {
   }, []);
 
   useEffect(() => {
+    if (categoryName === undefined) {
+      dispatch(loadCategories());
+    }
+  }, [categoryName]);
+
+  useEffect(() => {
     if (currentQuestion === undefined) {
       dispatch(loadQuestion());
     }
   }, [currentQuestion, dispatch]);
 
-  console.log({ currentQuestion });
-
-  return (
-    <PageLayout title="Category">
-      {ongoingExam && <ActiveExam exam={ongoingExam} />}
-    </PageLayout>
+  return ongoingExam ? (
+    <ActiveExam category={categoryName || ""} exam={ongoingExam} />
+  ) : (
+    <div></div>
   );
 }

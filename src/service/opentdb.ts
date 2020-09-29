@@ -2,6 +2,7 @@ const OPENTDB_HOST = "https://opentdb.com";
 const QUESTIONS_API = `${OPENTDB_HOST}/api.php`;
 const TOKEN_API = `${OPENTDB_HOST}/api_token.php`;
 const CATEGORIES_API = `${OPENTDB_HOST}/api_category.php`;
+const ENCODING = "url3986";
 
 export async function retrieveSessionToken(): Promise<string> {
   type SessionTokenResponse = {
@@ -52,10 +53,14 @@ export async function retrieveQuestions(
   url.searchParams.append("difficulty", difficulty);
   url.searchParams.append("type", kind);
   url.searchParams.append("token", token);
+  url.searchParams.append("encode", ENCODING);
 
   const response: QuestionApiResponse = await apiFetch(url.toString());
   return response.results.map((question) => ({
     ...question,
+    question: decodeURIComponent(question.question),
+    correct_answer: decodeURIComponent(question.correct_answer),
+    incorrect_answers: question.incorrect_answers.map(decodeURIComponent),
     categoryId,
   }));
 }

@@ -1,0 +1,19 @@
+.content {
+  min-height: 90px;
+  padding: 18px;
+  background: white;
+  border: 1px solid #E4E4E6;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.selected {
+  border: 2px solid #4D8AF0;
+  box-sizing: border-box;
+}
