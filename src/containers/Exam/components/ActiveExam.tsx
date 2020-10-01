@@ -7,7 +7,6 @@ import QuestionCard from 'components/QuestionCard';
 import styles from './activeExam.module.scss';
 import Loader from 'components/Loader';
 import Button from 'components/Button';
-import FadeTransition from 'components/FadeTransition';
 import { CSSTransition } from 'react-transition-group';
 import { ReactComponent as ArrowRight } from './arrowRight.svg';
 
