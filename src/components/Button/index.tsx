@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
-import styles from "./styles.module.scss";
-import classNames from "classnames/bind";
+import React, { ReactElement } from 'react';
+import styles from './styles.module.scss';
+import classNames from 'classnames/bind';
 
 type Props = {
   primary?: boolean;
@@ -16,7 +16,7 @@ export default function Button(props: Props): ReactElement {
 
   return (
     <button
-      className={cx(className, "base", {
+      className={cx(className, 'base', {
         secundary,
         primary,
       })}

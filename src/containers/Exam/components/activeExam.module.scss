@@ -6,6 +6,7 @@
 
 .content {
   display: flex;
+  height: 100%;
   flex-direction: column;
   padding: 12px;
 }
@@ -45,6 +46,10 @@
   z-index: 2;
   width: 100%;
   height: 100%;
+}
+
+.whiteSpace {
+  flex: 1;
 }
 
 .footer {

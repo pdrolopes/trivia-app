@@ -1,14 +1,14 @@
-import React, { ReactElement, useState, Fragment } from "react";
-import PageLayout from "components/PageLayout";
-import { ExamOngoing } from "store/exams";
-import QuestionLevel from "components/QuestionLevel";
-import QuestionResultCard from "components/QuestionResultCard";
-import QuestionCard from "components/QuestionCard";
-import styles from "./activeExam.module.scss";
-import Loader from "components/Loader";
-import Button from "components/Button";
-import { CSSTransition } from "react-transition-group";
-import { ReactComponent as ArrowRight } from "./arrowRight.svg";
+import React, { ReactElement, useState, Fragment, useEffect } from 'react';
+import PageLayout from 'components/PageLayout';
+import { ExamOngoing } from 'store/exams';
+import QuestionLevel from 'components/QuestionLevel';
+import QuestionResultCard from 'components/QuestionResultCard';
+import QuestionCard from 'components/QuestionCard';
+import styles from './activeExam.module.scss';
+import Loader from 'components/Loader';
+import Button from 'components/Button';
+import { CSSTransition } from 'react-transition-group';
+import { ReactComponent as ArrowRight } from './arrowRight.svg';
 
 type Props = {
   exam: ExamOngoing;
@@ -24,25 +24,36 @@ export default function ActiveExam(props: Props): ReactElement {
   } = props;
   const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
   const [confirmedAnswer, setConfirmedAnswer] = useState(false);
+  useEffect(() => {
+    // clean state when question changes
+    setSelectedAnswer(undefined);
+    setConfirmedAnswer(false);
+  }, [currentQuestion?.question]);
 
+  // computed
   const questionNumber = pastAnswers.length + 1;
   const title = `Questão ${questionNumber}`;
   const description = currentQuestion?.question;
   const answers = currentQuestion
-    ? [...currentQuestion.incorrect_answers, currentQuestion.correct_answer]
+    ? [
+        ...currentQuestion.incorrect_answers,
+        currentQuestion.correct_answer,
+      ].sort()
     : [];
   const level = currentQuestion?.difficulty;
   const isAnswerCorrect = currentQuestion
     ? currentQuestion.correct_answer === selectedAnswer
     : false;
+  const isButtonEnabled = selectedAnswer !== undefined;
   const footerButtonLabel = !confirmedAnswer ? (
-    "Responder"
+    'Responder'
   ) : (
     <Fragment>
       Avançar <ArrowRight />
     </Fragment>
   );
 
+  // handlers
   const handleAnswerClick = (answer: string) => () => {
     selectedAnswer !== answer
       ? setSelectedAnswer(answer)
@@ -51,11 +62,8 @@ export default function ActiveExam(props: Props): ReactElement {
   const handleFooterButtonClick = () => {
     if (!confirmedAnswer) {
       setConfirmedAnswer(true);
-      return;
     } else {
-      onAnswer(selectedAnswer || "");
-      setSelectedAnswer(undefined);
-      setConfirmedAnswer(false);
+      onAnswer(selectedAnswer || '');
     }
   };
 
@@ -84,20 +92,22 @@ export default function ActiveExam(props: Props): ReactElement {
             <QuestionResultCard correct={isAnswerCorrect} />
           </div>
         )}
+        <div className={styles.whiteSpace} />
         <CSSTransition
           in={selectedAnswer !== undefined}
           timeout={200}
           unmountOnExit
           classNames={{
-            enter: styles["footerTransition-enter"],
-            enterActive: styles["footerTransition-enter-active"],
-            exit: styles["footerTransition-exit"],
-            exitActive: styles["footerTransition-exit-active"],
+            enter: styles['footerTransition-enter'],
+            enterActive: styles['footerTransition-enter-active'],
+            exit: styles['footerTransition-exit'],
+            exitActive: styles['footerTransition-exit-active'],
           }}
         >
           <div className={styles.footer}>
             <Button
               primary
+              disabled={!isButtonEnabled}
               className={styles.confirmButton}
               onClick={handleFooterButtonClick}
             >

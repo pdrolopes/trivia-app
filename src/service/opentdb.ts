@@ -1,8 +1,8 @@
-const OPENTDB_HOST = "https://opentdb.com";
+const OPENTDB_HOST = 'https://opentdb.com';
 const QUESTIONS_API = `${OPENTDB_HOST}/api.php`;
 const TOKEN_API = `${OPENTDB_HOST}/api_token.php`;
 const CATEGORIES_API = `${OPENTDB_HOST}/api_category.php`;
-const ENCODING = "url3986";
+const ENCODING = 'url3986';
 
 export async function retrieveSessionToken(): Promise<string> {
   type SessionTokenResponse = {
@@ -12,7 +12,7 @@ export async function retrieveSessionToken(): Promise<string> {
   };
 
   const url = new URL(TOKEN_API);
-  url.searchParams.append("command", "request");
+  url.searchParams.append('command', 'request');
 
   const response: SessionTokenResponse = await apiFetch(url.toString());
   return response.token;
@@ -24,7 +24,7 @@ export async function retrieveCategories(): Promise<Array<Category>> {
   };
 
   const url = new URL(CATEGORIES_API);
-  url.searchParams.append("command", "request");
+  url.searchParams.append('command', 'request');
 
   const response: CategoriesResponse = await apiFetch(url.toString());
   return response.trivia_categories;
@@ -48,16 +48,17 @@ export async function retrieveQuestions(
   const { amount, kind, difficulty, categoryId, token } = args;
 
   const url = new URL(QUESTIONS_API);
-  url.searchParams.append("amount", String(amount));
-  url.searchParams.append("category", String(categoryId));
-  url.searchParams.append("difficulty", difficulty);
-  url.searchParams.append("type", kind);
-  url.searchParams.append("token", token);
-  url.searchParams.append("encode", ENCODING);
+  url.searchParams.append('amount', String(amount));
+  url.searchParams.append('category', String(categoryId));
+  url.searchParams.append('difficulty', difficulty);
+  url.searchParams.append('type', kind);
+  url.searchParams.append('token', token);
+  url.searchParams.append('encode', ENCODING);
 
   const response: QuestionApiResponse = await apiFetch(url.toString());
   return response.results.map((question) => ({
     ...question,
+    category: decodeURIComponent(question.category),
     question: decodeURIComponent(question.question),
     correct_answer: decodeURIComponent(question.correct_answer),
     incorrect_answers: question.incorrect_answers.map(decodeURIComponent),
@@ -78,8 +79,8 @@ export type Category = {
   id: number;
   name: string;
 };
-export type Difficulty = "easy" | "medium" | "hard";
-export type Kind = "multiple" | "boolean";
+export type Difficulty = 'easy' | 'medium' | 'hard';
+export type Kind = 'multiple' | 'boolean';
 export type QuestionAPI = {
   category: string;
   categoryId: number; // TODO Create own question type with camel case
