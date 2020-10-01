@@ -3,9 +3,10 @@ import PageLayout from 'components/PageLayout';
 import Button from 'components/Button';
 import { ExamFinished, Answer } from 'store/exams';
 import styles from './finishedExam.module.scss';
-import { CSSTransition } from 'react-transition-group';
 import { ReactComponent as Dummy } from './dummy.svg';
+import { ReactComponent as Squares } from './squares.svg';
 import { Difficulty } from 'service/opentdb';
+import { useLocation } from '@reach/router';
 
 type Props = {
   exam: ExamFinished;
@@ -29,9 +30,12 @@ export default function ActiveExam(props: Props): ReactElement {
   const hardCorrect = countAnswers('hard', true, pastAnswers);
   const hardWrong = countAnswers('hard', false, pastAnswers);
 
+  const handleGoBack = () => window.history.go(-1);
+
   return (
     <PageLayout title={categoryName} className={styles.pageLayout}>
       <div className={styles.content}>
+        <Squares className={styles.squares} />
         <div className={styles.upper}>
           <Dummy />
           <div>
@@ -50,7 +54,7 @@ export default function ActiveExam(props: Props): ReactElement {
           </div>
           <div>
             <span className={styles.number}>{totalWrong}</span>
-            <span className={styles.label}>errors</span>
+            <span className={styles.label}>erros</span>
           </div>
         </div>
         <div className={styles.detailedScore}>
@@ -70,7 +74,10 @@ export default function ActiveExam(props: Props): ReactElement {
             <span>Erros: {hardWrong}</span>
           </div>
         </div>
-        <Button primary> Voltar ao inicio</Button>
+        <div className={styles.whiteSpace} />
+        <Button primary className={styles.button} onClick={handleGoBack}>
+          Voltar ao inicio
+        </Button>
       </div>
     </PageLayout>
   );

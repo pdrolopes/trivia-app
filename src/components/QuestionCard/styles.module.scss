@@ -1,8 +1,10 @@
+@import '../../variables.scss';
+
 .content {
   min-height: 90px;
   padding: 18px;
   background: white;
-  border: 1px solid #E4E4E6;
+  border: 1px solid $gray3;
   box-sizing: border-box;
   box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
   border-radius: 8px;
@@ -11,9 +13,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 100ms;
+
+  &:active {
+    filter: brightness(95%);
+  }
 }
 
 .selected {
-  border: 2px solid #4D8AF0;
+  border: 2px solid $material-blue;
   box-sizing: border-box;
 }

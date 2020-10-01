@@ -7,6 +7,7 @@ import QuestionCard from 'components/QuestionCard';
 import styles from './activeExam.module.scss';
 import Loader from 'components/Loader';
 import Button from 'components/Button';
+import FadeTransition from 'components/FadeTransition';
 import { CSSTransition } from 'react-transition-group';
 import { ReactComponent as ArrowRight } from './arrowRight.svg';
 
@@ -71,7 +72,7 @@ export default function ActiveExam(props: Props): ReactElement {
     <PageLayout title={category} className={styles.pageLayout}>
       <div className={styles.content}>
         <div className={styles.questionInfo}>
-          <h1 className={styles.title}>{title}</h1>
+          <h1 className={styles.title}>{level && title}</h1>
           {level && <QuestionLevel level={level} />}
         </div>
         {loading && <Loader className={styles.loader} />}

@@ -1,10 +1,18 @@
 @import '../../../variables.scss';
 
 .content {
+  position: relative;
   display: flex;
+  height: 100%;
   flex-direction: column;
   padding: 18px;
+  padding: 18px 18px 32px;
   color: $dark-blue;
+}
+.squares {
+  position: absolute;
+  right: 6px;
+  top: -8px;
 }
 
 .upper {
@@ -87,7 +95,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    border-right:  1px solid #B8BED5;
+    border-right:  1px solid $gray2;
     padding-left: 20px;
 
     & span:first-child {
@@ -98,4 +106,13 @@
   & .levelcontainer:last-child {
     border-right: none;
   }
+}
+
+.whiteSpace {
+  flex: 1;
+  min-height: 18px;
+}
+
+.button {
+  font-weight: bold;
 }
