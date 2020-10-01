@@ -6,7 +6,6 @@ import styles from './finishedExam.module.scss';
 import { ReactComponent as Dummy } from './dummy.svg';
 import { ReactComponent as Squares } from './squares.svg';
 import { Difficulty } from 'service/opentdb';
-import { useLocation } from '@reach/router';
 
 type Props = {
   exam: ExamFinished;

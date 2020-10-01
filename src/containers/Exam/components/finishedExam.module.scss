@@ -17,6 +17,7 @@
 
 .upper {
   display: flex;
+  align-self: center;
 
   & > svg {
     margin-right: 18px;
@@ -88,7 +89,9 @@
 .detailedScore {
   display: flex;
   margin-top: 30px;
+  max-width: 300px;
   width: 100%;
+  align-self: center;
   font-size: 14px;
 
   & .levelcontainer {

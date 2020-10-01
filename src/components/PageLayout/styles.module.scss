@@ -1,8 +1,10 @@
-
 .main {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  align-self: center;
+  margin: auto;
+  height: 80%;
+  width: 80%;
 
   .children {
     display: flex;
