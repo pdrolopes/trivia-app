@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import styles from "./style.module.scss";
+import React, { ReactElement } from 'react';
+import styles from './style.module.scss';
 
 type Props = {
   className: string;

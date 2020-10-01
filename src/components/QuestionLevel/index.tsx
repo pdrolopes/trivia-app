@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
-import styles from "./questionLevel.module.scss";
-import { ReactComponent as Star } from "./star.svg";
-import { Difficulty } from "service/opentdb";
-import classNames from "classnames/bind";
+import React, { ReactElement } from 'react';
+import styles from './questionLevel.module.scss';
+import { ReactComponent as Star } from './star.svg';
+import { Difficulty } from 'service/opentdb';
+import classNames from 'classnames/bind';
 
 //TODO Add style, neutral and primary
 type Props = {
@@ -14,8 +14,8 @@ export default function QuestionLevel(props: Props): ReactElement {
   const label = levelLabel(level);
   const cx = classNames.bind(styles);
 
-  const starMediumDisable = level === "easy";
-  const starHardDisable = level === "easy" || level === "medium";
+  const starMediumDisable = level === 'easy';
+  const starHardDisable = level === 'easy' || level === 'medium';
 
   return (
     <div className={styles.container}>
@@ -31,11 +31,11 @@ export default function QuestionLevel(props: Props): ReactElement {
 
 const levelLabel = (level: Difficulty) => {
   switch (level) {
-    case "easy":
-      return "Fácil";
-    case "medium":
-      return "Médio";
-    case "hard":
-      return "Difícil";
+    case 'easy':
+      return 'Fácil';
+    case 'medium':
+      return 'Médio';
+    case 'hard':
+      return 'Difícil';
   }
 };

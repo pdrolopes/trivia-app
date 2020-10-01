@@ -1,14 +1,14 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
   QuestionAPI,
   Difficulty,
   retrieveSessionToken,
   retrieveQuestions,
-} from "service/opentdb";
-import { ThunkAPI } from "store";
+} from 'service/opentdb';
+import { ThunkAPI } from 'store';
 
 const QUESTIONS_FETCH_AMOUNT = 10;
-const QUESTIONS_FETCH_KIND = "multiple";
+const QUESTIONS_FETCH_KIND = 'multiple';
 
 type State = {
   readonly token: string | undefined;
@@ -21,7 +21,7 @@ const initialState: State = {
 };
 
 const questions = createSlice({
-  name: "questions",
+  name: 'questions',
   initialState,
   reducers: {
     setToken(state, action: PayloadAction<string>) {
@@ -42,7 +42,7 @@ export const getQuestion = createAsyncThunk<
   QuestionAPI,
   { categoryId: number; difficulty: Difficulty },
   ThunkAPI
->("questions/getQuestion", async function (args, thunkAPI) {
+>('questions/getQuestion', async function (args, thunkAPI) {
   const { difficulty, categoryId } = args;
   const { dispatch, getState, rejectWithValue } = thunkAPI;
 
@@ -74,7 +74,7 @@ export const getQuestion = createAsyncThunk<
   const newQuestion = fetchedQuestions.shift();
   dispatch(addItems(fetchedQuestions));
   if (!newQuestion) {
-    return rejectWithValue("No new questions available");
+    return rejectWithValue('No new questions available');
   }
 
   return newQuestion;

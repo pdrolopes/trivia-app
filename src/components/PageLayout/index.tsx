@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
-import Header from "components/Header";
-import styles from "./styles.module.scss";
+import React, { ReactElement } from 'react';
+import Header from 'components/Header';
+import styles from './styles.module.scss';
 
 type Props = {
   title: string;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function PageLayout(props: Props): ReactElement {
-  const { title, children, className = "" } = props;
+  const { title, children, className = '' } = props;
   return (
     <div className={`${styles.main} ${className}`}>
       <Header title={title} />

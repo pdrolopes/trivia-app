@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ThunkAPI } from "store";
-import { Category, retrieveCategories } from "service/opentdb";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkAPI } from 'store';
+import { Category, retrieveCategories } from 'service/opentdb';
 
 const MAX_CATEGORIES = 6;
 
@@ -16,12 +16,12 @@ const initialState: State = {
   error: false,
 };
 export const loadCategories = createAsyncThunk<Array<Category>, void, ThunkAPI>(
-  "categories/loadCategories",
+  'categories/loadCategories',
   retrieveCategories
 );
 
 const categories = createSlice({
-  name: "categories",
+  name: 'categories',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

@@ -1,10 +1,10 @@
-import React, { ReactElement } from "react";
-import { navigate } from "@reach/router";
-import Button from "components/Button";
-import Loader from "components/Loader";
-import { Category } from "service/opentdb";
-import PageLayout from "components/PageLayout";
-import styles from "./styles.module.scss";
+import React, { ReactElement } from 'react';
+import { navigate } from '@reach/router';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
+import { Category } from 'service/opentdb';
+import PageLayout from 'components/PageLayout';
+import styles from './styles.module.scss';
 
 type Props = {
   categories: Array<Category>;
