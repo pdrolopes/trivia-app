@@ -48,29 +48,33 @@ export default function ActiveExam(props: Props): ReactElement {
         </div>
         <div className={styles.score}>
           <div>
-            <span className={styles.number}>{totalCorrect}</span>
+            <span data-testid="total-correct" className={styles.number}>
+              {totalCorrect}
+            </span>
             <span className={styles.label}>acertos</span>
           </div>
           <div>
-            <span className={styles.number}>{totalWrong}</span>
+            <span data-testid="total-wrong" className={styles.number}>
+              {totalWrong}
+            </span>
             <span className={styles.label}>erros</span>
           </div>
         </div>
         <div className={styles.detailedScore}>
           <div className={styles.levelcontainer}>
             <span>Fácil</span>
-            <span>Acertos: {easyCorrect}</span>
-            <span>Erros: {easyWrong}</span>
+            <span data-testid="easy-correct">Acertos: {easyCorrect}</span>
+            <span data-testid="easy-wrong">Erros: {easyWrong}</span>
           </div>
           <div className={styles.levelcontainer}>
             <span>Médio</span>
-            <span>Acertos: {mediumCorrect}</span>
-            <span>Erros: {mediumWrong}</span>
+            <span data-testid="medium-correct">Acertos: {mediumCorrect}</span>
+            <span data-testid="medium-wrong">Erros: {mediumWrong}</span>
           </div>
           <div className={styles.levelcontainer}>
             <span>Difícil</span>
-            <span>Acertos: {hardCorrect}</span>
-            <span>Erros: {hardWrong}</span>
+            <span data-testid="hard-correct">Acertos: {hardCorrect}</span>
+            <span data-testid="hard-wrong">Erros: {hardWrong}</span>
           </div>
         </div>
         <div className={styles.whiteSpace} />

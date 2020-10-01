@@ -7,13 +7,24 @@ type Props = {
   selected: boolean;
   onClick?(): void;
   className?: string;
+  'data-testid': string;
 };
 
 export default function QuestionCard(props: Props): ReactElement {
-  const { description, selected, onClick, className } = props;
+  const {
+    description,
+    selected,
+    onClick,
+    className,
+    'data-testid': dataTestId,
+  } = props;
   const cx = classNames.bind(styles);
   return (
-    <span className={cx('content', { selected }, className)} onClick={onClick}>
+    <span
+      data-testid={dataTestId}
+      className={cx('content', { selected }, className)}
+      onClick={onClick}
+    >
       {description}
     </span>
   );

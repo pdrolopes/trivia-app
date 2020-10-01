@@ -75,11 +75,18 @@ export default function ActiveExam(props: Props): ReactElement {
           {level && <QuestionLevel level={level} />}
         </div>
         {loading && <Loader className={styles.loader} />}
-        <p className={styles.description}>{description}</p>
+        <p data-testid="question-description" className={styles.description}>
+          {description}
+        </p>
         {answers.map((answer, index) => {
+          const testid =
+            answer === currentQuestion?.correct_answer
+              ? 'correct-option'
+              : 'wrong-option';
           return (
             <QuestionCard
               key={index}
+              data-testid={testid}
               className={styles.questionCard}
               description={answer}
               selected={answer === selectedAnswer}
