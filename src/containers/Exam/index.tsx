@@ -1,7 +1,12 @@
 import React, { ReactElement, Fragment, useEffect } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useAppDispatch, useAppSelector } from 'store';
-import { startExam, loadQuestion, answerQuestion } from 'store/exams';
+import {
+  startExam,
+  closeExam,
+  loadQuestion,
+  answerQuestion,
+} from 'store/exams';
 import { loadCategories } from 'store/categories';
 import ActiveExam from './components/ActiveExam';
 import FinishedExam from './components/FinishedExam';
@@ -33,6 +38,9 @@ export default function Exam(props: Props): ReactElement {
   // Start exam at the beginning
   useEffect(() => {
     dispatch(startExam(categoryId));
+    return () => {
+      dispatch(closeExam());
+    };
   }, []);
 
   // Load categories

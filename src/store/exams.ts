@@ -96,6 +96,9 @@ const exams = createSlice({
             categoryId,
           };
     },
+    closeExam(state) {
+      state.activeExam = undefined;
+    },
     answerQuestion(state, action: PayloadAction<string>) {
       const { activeExam } = state;
       // can't answer if active exam is not "ongoing"
@@ -194,5 +197,5 @@ function discoverNextDifficulty(pastAnswers: Answer[]): Difficulty {
   }
 }
 
-export const { startExam, answerQuestion } = exams.actions;
+export const { startExam, closeExam, answerQuestion } = exams.actions;
 export default exams.reducer;
