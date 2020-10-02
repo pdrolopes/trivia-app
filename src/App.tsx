@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
 import { Router } from '@reach/router';
-import HomePage from 'containers/HomePage';
+import Home from 'containers/Home';
 import Exam from 'containers/Exam';
 import styles from 'App.module.scss';
 
 function App(): ReactElement {
   return (
     <Router className={styles.router}>
-      <HomePage path="/home" default />
+      <Home path="/home" default />
       <Exam path="/exam/:categoryId" />
     </Router>
   );

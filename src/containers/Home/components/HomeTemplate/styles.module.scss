@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import '../../../../variables.scss';
 
 .content {
   display: flex;
@@ -17,8 +17,11 @@
   justify-content: center;
 
   @media(max-width: $breakpoint-pc) {
-    overflow-x: hidden;
-    white-space: nowrap;
+    & button {
+      overflow-x: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 
   @media (min-width: $breakpoint-pc) {
