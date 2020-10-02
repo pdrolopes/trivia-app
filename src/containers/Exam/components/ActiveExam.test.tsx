@@ -52,6 +52,7 @@ test('Should show question information ', () => {
     },
   });
   expect(getByText('foo-question')).toBeInTheDocument();
+  expect(getByText('Questão 1')).toBeInTheDocument();
   expect(getByText('Difícil')).toBeInTheDocument();
   expect(getByText('correct')).toBeInTheDocument();
   expect(getAllByText('wrong')).toHaveLength(3);
@@ -78,19 +79,16 @@ test('Should show response feedback when answering a question', async () => {
   fireEvent.click(getAllByText('wrong')[0]);
   fireEvent.click(getByText('Responder'));
   expect(getByText('Você errou!')).toBeInTheDocument();
+  fireEvent.click(getByText('Avançar'));
+  await waitFor(() => expect(callbackFn).toBeCalledTimes(1));
+  expect(callbackFn).toBeCalledWith('wrong');
 
   // anwser right
-  fireEvent.click(getByText('Avançar'));
   fireEvent.click(getByText('correct'));
   fireEvent.click(getByText('Responder'));
   expect(getByText('Você acertou!')).toBeInTheDocument();
+  fireEvent.click(getByText('Avançar'));
 
-  /* await waitFor(() => expect(callbackFn).toBeCalledTimes(2)); */
-
-  /* expect(getByText('foo-question')).toBeInTheDocument(); */
-  /* expect(getByText('Difícil')).toBeInTheDocument(); */
-  /* expect(getByText('correct')).toBeInTheDocument(); */
-  /* expect(getAllByText('wrong')).toHaveLength(3); */
+  await waitFor(() => expect(callbackFn).toBeCalledTimes(2));
+  expect(callbackFn).toBeCalledWith('correct');
 });
-
-export {};

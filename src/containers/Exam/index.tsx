@@ -68,7 +68,11 @@ export default function Exam(props: Props): ReactElement {
       onAnswer={(value) => dispatch(answerQuestion(value))}
     />
   ) : finishedExam ? (
-    <FinishedExam categoryName={categoryName || ''} exam={finishedExam} />
+    <FinishedExam
+      categoryName={categoryName || ''}
+      exam={finishedExam}
+      onGoBack={() => window.history.go(-1)}
+    />
   ) : (
     <Fragment />
   );

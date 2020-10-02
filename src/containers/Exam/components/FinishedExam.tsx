@@ -10,11 +10,13 @@ import { Difficulty } from 'service/opentdb';
 type Props = {
   exam: ExamFinished;
   categoryName: string;
+  onGoBack(): void;
 };
 
 export default function ActiveExam(props: Props): ReactElement {
   const {
     exam: { pastAnswers, categoryName },
+    onGoBack,
   } = props;
 
   const totalCorrect = pastAnswers.reduce(
@@ -28,8 +30,6 @@ export default function ActiveExam(props: Props): ReactElement {
   const mediumWrong = countAnswers('medium', false, pastAnswers);
   const hardCorrect = countAnswers('hard', true, pastAnswers);
   const hardWrong = countAnswers('hard', false, pastAnswers);
-
-  const handleGoBack = () => window.history.go(-1);
 
   return (
     <PageLayout title={categoryName} className={styles.pageLayout}>
@@ -78,7 +78,7 @@ export default function ActiveExam(props: Props): ReactElement {
           </div>
         </div>
         <div className={styles.whiteSpace} />
-        <Button primary className={styles.button} onClick={handleGoBack}>
+        <Button primary className={styles.button} onClick={onGoBack}>
           Voltar ao inicio
         </Button>
       </div>
