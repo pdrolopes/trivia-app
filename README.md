@@ -1,5 +1,5 @@
 
-# Trivia app
+# Trivia app ![Github CI](https://github.com/pdrolopes/trivia-app/workflows/Node.js%20CI/badge.svg)
 Trivia web app made with Typescript/React/Redux that consumes data from [Open Trivia Api](www.opentdb.com).
 
 ### [Demo](https://trivia-app-42.herokuapp.com) 
@@ -10,6 +10,7 @@ Trivia web app made with Typescript/React/Redux that consumes data from [Open Tr
 
 ### Install
 Install dependencies
+
 `npm install`
 
 
