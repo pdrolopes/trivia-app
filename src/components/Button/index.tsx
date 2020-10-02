@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 type Props = {
   primary?: boolean;
   secundary?: boolean;
+  wrap?: boolean;
 } & React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
@@ -12,13 +13,20 @@ type Props = {
 const cx = classNames.bind(styles);
 
 export default function Button(props: Props): ReactElement {
-  const { className, secundary = false, primary = false, ...rest } = props;
+  const {
+    className,
+    secundary = false,
+    primary = false,
+    wrap = false,
+    ...rest
+  } = props;
 
   return (
     <button
       className={cx(className, 'base', {
         secundary,
         primary,
+        wrap,
       })}
       {...rest}
     />

@@ -20,14 +20,17 @@
   }
 
   &.secundary {
-    overflow-x: hidden;
-    white-space: nowrap;
     background: white;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
     background: linear-gradient(360deg, rgba(0, 0, 0, 0.07) 0%, rgba(0, 0, 0, 0) 100%);
     background-blend-mode: multiply;
     display: inline-block;
     text-align:center;
+  }
+
+  &.wrap {
+    overflow-x: unset;
+    white-space: wrap;
   }
 
   &:hover {

@@ -81,22 +81,24 @@ export default function ActiveExam(props: Props): ReactElement {
         <p data-testid="question-description" className={styles.description}>
           {description}
         </p>
-        {answers.map((answer, index) => {
-          const testid =
-            answer === currentQuestion?.correctAnswer
-              ? 'correct-option'
-              : 'wrong-option';
-          return (
-            <QuestionCard
-              key={index}
-              data-testid={testid}
-              className={styles.questionCard}
-              description={answer}
-              selected={answer === selectedAnswer}
-              onClick={handleAnswerClick(answer)}
-            />
-          );
-        })}
+        <div className={styles.answersContent}>
+          {answers.map((answer, index) => {
+            const testid =
+              answer === currentQuestion?.correctAnswer
+                ? 'correct-option'
+                : 'wrong-option';
+            return (
+              <QuestionCard
+                key={index}
+                data-testid={testid}
+                className={styles.questionCard}
+                description={answer}
+                selected={answer === selectedAnswer}
+                onClick={handleAnswerClick(answer)}
+              />
+            );
+          })}
+        </div>
         {confirmedAnswer && (
           <div className={styles.overlay}>
             <QuestionResultCard correct={isAnswerCorrect} />

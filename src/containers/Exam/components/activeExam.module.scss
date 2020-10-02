@@ -10,6 +10,28 @@
   flex-direction: column;
   padding: 12px;
 }
+
+.answersContent {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  & .questionCard {
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: $breakpoint-pc) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 12px;
+    margin-bottom: 76px;
+
+    & .questionCard {
+      margin-bottom: 0;
+    }
+  }
+}
 .questionInfo {
   flex: 0;
   display: flex;
@@ -24,10 +46,6 @@
 
 .descripiton {
   font-size: 16px;
-}
-
-.questionCard {
-  margin-bottom: 16px;
 }
 
 .loader {

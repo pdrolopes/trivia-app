@@ -39,6 +39,10 @@
   align-items: center;
   position: relative;
 
+  @media (min-width: $breakpoint-pc) {
+    margin-top: 10px;
+  }
+
   & > span {
     background-color: $white;
     padding: 8px;
