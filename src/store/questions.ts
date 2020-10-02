@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
-  QuestionAPI,
+  Question,
   Difficulty,
   retrieveSessionToken,
   retrieveQuestions,
@@ -12,7 +12,7 @@ const QUESTIONS_FETCH_KIND = 'multiple';
 
 type State = {
   readonly token: string | undefined;
-  readonly items: Array<QuestionAPI>;
+  readonly items: Array<Question>;
 };
 
 const initialState: State = {
@@ -27,10 +27,10 @@ const questions = createSlice({
     setToken(state, action: PayloadAction<string>) {
       state.token = action.payload;
     },
-    addItems(state, action: PayloadAction<QuestionAPI[]>) {
+    addItems(state, action: PayloadAction<Question[]>) {
       state.items.push(...action.payload);
     },
-    removeItem(state, action: PayloadAction<QuestionAPI>) {
+    removeItem(state, action: PayloadAction<Question>) {
       state.items = state.items.filter(
         (item) => item.question !== action.payload.question
       );
@@ -39,7 +39,7 @@ const questions = createSlice({
 });
 
 export const getQuestion = createAsyncThunk<
-  QuestionAPI,
+  Question,
   { categoryId: number; difficulty: Difficulty },
   ThunkAPI
 >('questions/getQuestion', async function (args, thunkAPI) {

@@ -40,7 +40,15 @@ type RetrieveQuestionArgs = {
 
 export async function retrieveQuestions(
   args: RetrieveQuestionArgs
-): Promise<Array<QuestionAPI>> {
+): Promise<Array<Question>> {
+  type QuestionAPI = {
+    category: string;
+    kind: Kind;
+    difficulty: Difficulty;
+    question: string;
+    correct_answer: string;
+    incorrect_answers: Array<string>;
+  };
   type QuestionApiResponse = {
     results: Array<QuestionAPI>;
     response_code: number;
@@ -57,11 +65,12 @@ export async function retrieveQuestions(
 
   const response: QuestionApiResponse = await apiFetch(url.toString());
   return response.results.map((question) => ({
-    ...question,
+    kind: question.kind,
+    difficulty: question.difficulty,
     category: decodeURIComponent(question.category),
     question: decodeURIComponent(question.question),
-    correct_answer: decodeURIComponent(question.correct_answer),
-    incorrect_answers: question.incorrect_answers.map(decodeURIComponent),
+    correctAnswer: decodeURIComponent(question.correct_answer),
+    incorrectAnswers: question.incorrect_answers.map(decodeURIComponent),
     categoryId,
   }));
 }
@@ -81,12 +90,12 @@ export type Category = {
 };
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type Kind = 'multiple' | 'boolean';
-export type QuestionAPI = {
+export type Question = {
   category: string;
-  categoryId: number; // TODO Create own question type with camel case
+  categoryId: number;
   kind: Kind;
   difficulty: Difficulty;
   question: string;
-  correct_answer: string;
-  incorrect_answers: Array<string>;
+  correctAnswer: string;
+  incorrectAnswers: Array<string>;
 };

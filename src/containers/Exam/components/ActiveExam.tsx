@@ -36,13 +36,13 @@ export default function ActiveExam(props: Props): ReactElement {
   const description = currentQuestion?.question;
   const answers = currentQuestion
     ? [
-        ...currentQuestion.incorrect_answers,
-        currentQuestion.correct_answer,
+        ...currentQuestion.incorrectAnswers,
+        currentQuestion.correctAnswer,
       ].sort()
     : [];
   const level = currentQuestion?.difficulty;
   const isAnswerCorrect = currentQuestion
-    ? currentQuestion.correct_answer === selectedAnswer
+    ? currentQuestion.correctAnswer === selectedAnswer
     : false;
   const isButtonEnabled = selectedAnswer !== undefined;
   const footerButtonLabel = !confirmedAnswer ? (
@@ -80,7 +80,7 @@ export default function ActiveExam(props: Props): ReactElement {
         </p>
         {answers.map((answer, index) => {
           const testid =
-            answer === currentQuestion?.correct_answer
+            answer === currentQuestion?.correctAnswer
               ? 'correct-option'
               : 'wrong-option';
           return (

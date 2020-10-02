@@ -4,7 +4,7 @@ import {
   PayloadAction,
   unwrapResult,
 } from '@reduxjs/toolkit';
-import { Difficulty, QuestionAPI } from 'service/opentdb';
+import { Difficulty, Question } from 'service/opentdb';
 import { loadExam, persistExam } from 'service/storage';
 import { ThunkAPI } from 'store';
 import { getQuestion } from 'store/questions';
@@ -22,7 +22,7 @@ export type ExamOngoing = {
   kind: 'ongoing';
   categoryId: number;
   pastAnswers: Array<Answer>;
-  currentQuestion: QuestionAPI | undefined;
+  currentQuestion: Question | undefined;
   loading: boolean;
   error: boolean;
 };
@@ -44,7 +44,7 @@ const initialState: State = {
   activeExam: undefined,
 };
 
-export const loadQuestion = createAsyncThunk<QuestionAPI, void, ThunkAPI>(
+export const loadQuestion = createAsyncThunk<Question, void, ThunkAPI>(
   'exam/loadQuestion',
   async function (_, thunkAPI) {
     const { dispatch, getState, rejectWithValue } = thunkAPI;
@@ -111,7 +111,7 @@ const exams = createSlice({
         //Can't answer with no curre question
         return;
       }
-      const isCorrectAnswer = currentQuestion.correct_answer === action.payload;
+      const isCorrectAnswer = currentQuestion.correctAnswer === action.payload;
       pastAnswers.push({
         correct: isCorrectAnswer,
         difficulty: currentQuestion.difficulty,
