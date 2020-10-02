@@ -9,6 +9,9 @@ module.exports = {
       version: 'detect',
     },
   },
+  globals: {
+    jest: true,
+  },
   extends: [
     'react-app',
     'plugin:react/recommended',

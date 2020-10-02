@@ -77,7 +77,7 @@ export default function ActiveExam(props: Props): ReactElement {
           <h1 className={styles.title}>{level && title}</h1>
           {level && <QuestionLevel level={level} />}
         </div>
-        {loading && <Loader className={styles.loader} />}
+        {loading && <Loader data-testid="loader" className={styles.loader} />}
         <p data-testid="question-description" className={styles.description}>
           {description}
         </p>

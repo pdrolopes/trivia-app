@@ -65,7 +65,6 @@ export async function retrieveQuestions(
 
   const response: QuestionApiResponse = await apiFetch(url.toString());
   return response.results.map((question) => ({
-    kind: question.kind,
     difficulty: question.difficulty,
     category: decodeURIComponent(question.category),
     question: decodeURIComponent(question.question),
@@ -93,7 +92,6 @@ export type Kind = 'multiple' | 'boolean';
 export type Question = {
   category: string;
   categoryId: number;
-  kind: Kind;
   difficulty: Difficulty;
   question: string;
   correctAnswer: string;
