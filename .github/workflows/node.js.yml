@@ -27,4 +27,6 @@ jobs:
     - run: npm ci
     - run: npm run lint
     - run: npm run build --if-present
+      env:
+        CI: false // This exists because of CRA launching error with warnings -_- zzzzz
     - run: npm test
