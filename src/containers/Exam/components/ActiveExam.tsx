@@ -13,7 +13,7 @@ import { ReactComponent as ArrowRight } from './arrowRight.svg';
 type Props = {
   exam: ExamOngoing;
   category: string;
-  onAnswer(answer: string): void;
+  onAnswer(arg: string): void;
 };
 
 export default function ActiveExam(props: Props): ReactElement {
@@ -24,11 +24,6 @@ export default function ActiveExam(props: Props): ReactElement {
   } = props;
   const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
   const [confirmedAnswer, setConfirmedAnswer] = useState(false);
-  useEffect(() => {
-    // clean state when question changes
-    setSelectedAnswer(undefined);
-    setConfirmedAnswer(false);
-  }, [currentQuestion?.question]);
 
   // computed
   const questionNumber = pastAnswers.length + 1;
@@ -52,6 +47,12 @@ export default function ActiveExam(props: Props): ReactElement {
       Avançar <ArrowRight />
     </Fragment>
   );
+
+  useEffect(() => {
+    // clean state when question changes
+    setSelectedAnswer(undefined);
+    setConfirmedAnswer(false);
+  }, [description, setConfirmedAnswer, setSelectedAnswer]);
 
   // handlers
   const handleAnswerClick = (answer: string) => () => {

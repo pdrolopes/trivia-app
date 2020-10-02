@@ -13,7 +13,7 @@ export default function Home(_: RouteComponentProps): ReactElement {
     if (categories === undefined) {
       dispatch(loadCategories());
     }
-  }, [categories]);
+  }, [dispatch, categories]);
 
   return (
     <HomeTemplate

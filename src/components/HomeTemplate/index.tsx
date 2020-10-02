@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { navigate } from '@reach/router';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
 import { Category } from 'service/opentdb';
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export default function HomeTemplate(props: Props): ReactElement {
-  const { categories, loading } = props;
+  const { categories, loading, onCategorySelect } = props;
 
   return (
     <PageLayout title="Dev mobile">
@@ -27,7 +26,7 @@ export default function HomeTemplate(props: Props): ReactElement {
               className={styles.categoryButton}
               secundary
               key={index}
-              onClick={() => navigate(`/exam/${category.id}`)}
+              onClick={() => onCategorySelect(category)}
             >
               {category.name}
             </Button>

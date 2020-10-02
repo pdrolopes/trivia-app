@@ -41,14 +41,14 @@ export default function Exam(props: Props): ReactElement {
     return () => {
       dispatch(closeExam());
     };
-  }, []);
+  }, [dispatch, categoryId]);
 
   // Load categories
   useEffect(() => {
     if (categoryName === undefined) {
       dispatch(loadCategories());
     }
-  }, [categoryName]);
+  }, [categoryName, dispatch]);
 
   // Effect to reload question when ongoing exam does not have a question
   useEffect(() => {
