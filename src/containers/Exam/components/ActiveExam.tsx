@@ -9,6 +9,9 @@ import Loader from 'components/Loader';
 import Button from 'components/Button';
 import { CSSTransition } from 'react-transition-group';
 import { ReactComponent as ArrowRight } from './arrowRight.svg';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
 
 type Props = {
   exam: ExamOngoing;
@@ -100,7 +103,7 @@ export default function ActiveExam(props: Props): ReactElement {
             <QuestionResultCard correct={isAnswerCorrect} />
           </div>
         )}
-        <div className={styles.whiteSpace} />
+        <div className={cx('whiteSpace', !!selectedAnswer && 'increase')} />
         <CSSTransition
           in={selectedAnswer !== undefined}
           timeout={200}
