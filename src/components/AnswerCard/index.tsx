@@ -10,7 +10,7 @@ type Props = {
   'data-testid': string;
 };
 
-export default function QuestionCard(props: Props): ReactElement {
+export default function AnswerCard(props: Props): ReactElement {
   const {
     description,
     selected,

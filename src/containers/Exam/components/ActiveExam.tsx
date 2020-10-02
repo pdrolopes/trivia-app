@@ -3,7 +3,7 @@ import PageLayout from 'components/PageLayout';
 import { ExamOngoing } from 'store/exams';
 import QuestionLevel from 'components/QuestionLevel';
 import QuestionResultCard from 'components/QuestionResultCard';
-import QuestionCard from 'components/QuestionCard';
+import AnswerCard from 'components/AnswerCard';
 import styles from './activeExam.module.scss';
 import Loader from 'components/Loader';
 import Button from 'components/Button';
@@ -88,10 +88,10 @@ export default function ActiveExam(props: Props): ReactElement {
                 ? 'correct-option'
                 : 'wrong-option';
             return (
-              <QuestionCard
+              <AnswerCard
                 key={index}
                 data-testid={testid}
-                className={styles.questionCard}
+                className={styles.answerCard}
                 description={answer}
                 selected={answer === selectedAnswer}
                 onClick={handleAnswerClick(answer)}

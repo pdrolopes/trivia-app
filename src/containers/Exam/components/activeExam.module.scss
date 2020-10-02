@@ -16,7 +16,7 @@
   height: 100%;
   flex-direction: column;
 
-  & .questionCard {
+  & .answerCard {
     margin-bottom: 16px;
   }
 
@@ -27,7 +27,7 @@
     grid-gap: 12px;
     margin-bottom: 76px;
 
-    & .questionCard {
+    & .answerCard {
       margin-bottom: 0;
     }
   }

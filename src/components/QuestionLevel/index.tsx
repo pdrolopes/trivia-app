@@ -4,7 +4,6 @@ import { ReactComponent as Star } from './star.svg';
 import { Difficulty } from 'service/opentdb';
 import classNames from 'classnames/bind';
 
-//TODO Add style, neutral and primary
 type Props = {
   level: Difficulty;
 };

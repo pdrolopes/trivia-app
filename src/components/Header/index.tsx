@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import styles from './header.module.scss';
 
-//TODO Add style, neutral and primary
 type Props = {
   title: string;
 };
